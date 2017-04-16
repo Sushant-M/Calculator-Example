@@ -68,12 +68,13 @@
         android:id="@+id/multiply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="X"
-        tools:layout_constraintRight_creator="1"
         android:layout_marginEnd="35dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:onClick="mutiplication_ui"
+        android:text="X"
         app:layout_constraintBaseline_toBaselineOf="@+id/button"
-        tools:layout_constraintBaseline_creator="1"/>
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintRight_creator="1"/>
 
     <Button
         android:id="@+id/subtract"
@@ -91,13 +92,14 @@
         android:id="@+id/divide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="/"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/button"
         android:layout_marginTop="17dp"
+        android:onClick="divide_ui"
+        android:text="/"
+        app:layout_constraintLeft_toLeftOf="@+id/button"
+        app:layout_constraintRight_toRightOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/button"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/button"/>
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"/>
 
 </android.support.constraint.ConstraintLayout>
