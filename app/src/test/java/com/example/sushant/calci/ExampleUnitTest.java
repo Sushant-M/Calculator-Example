@@ -23,8 +23,20 @@ public class ExampleUnitTest {
     }
     @Test
     public void our_subtraction() throws Exception{
-        Calculator calculator_1 = new Calculator() ;
-        int ans_1 = calculator_1.sub(6,5);
-        assertEquals(1,ans_1);
+        Calculator calculator = new Calculator() ;
+        int answer = calculator.sub(6,5);
+        assertEquals(1,answer);
+    }
+    @Test
+    public void our_multiplication() throws Exception{
+        Calculator calculator = new Calculator();
+        int answer = calculator.mul(2,6);
+        assertEquals(12,answer);
+    }
+    @Test
+    public void our_div() throws Exception{
+        Calculator calculator = new Calculator();
+        int answer = calculator.div(6,2);
+        assertEquals(3,answer);
     }
 }
