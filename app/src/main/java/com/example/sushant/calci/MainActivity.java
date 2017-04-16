@@ -1,5 +1,6 @@
 package com.example.sushant.calci;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IntegerRes;
 import android.support.annotation.StringDef;
@@ -8,12 +9,21 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.Inet4Address;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +42,19 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        String filename = "config.txt";
+        String string = "2,12";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -54,6 +77,60 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private String readFromFile(Context context) {
+
+        String ret = "";
+
+        try {
+            InputStream inputStream = context.openFileInput("config.txt");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+
+        return ret;
+    }
+
+    public void add_from_file(View view){
+        Context context = getApplicationContext();
+        String to_parse = readFromFile(context);
+
+        String delims = "[,]";
+        String[] tokens = to_parse.split(delims);
+
+        String num1_raw = tokens[0];
+        String num2_raw = tokens[1];
+
+        int num1, num2;
+
+        num1 = Integer.parseInt(num1_raw);
+        num2 = Integer.parseInt(num2_raw);
+
+        int answer = num1 + num2;
+
+        TextView answer_view;
+        answer_view = (TextView)findViewById(R.id.answer);
+
+        answer_view.setText(String.valueOf(answer));
+
     }
 
     public void addition_ui(View view){
